@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  gap: 25px;
+  margin: auto;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 75px;
+  background: lightgray;
+}
