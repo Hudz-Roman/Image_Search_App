@@ -1,7 +1,11 @@
 import s from './SearchBar.module.css';
 import { Formik, Form, Field } from 'formik';
 
-const SearchBar = ({ onSubmit }) => {
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
   const initialValues = {
     query: '',
   };

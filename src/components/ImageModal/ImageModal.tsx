@@ -1,8 +1,20 @@
+import { Image } from '../../types';
 import s from './ImageModal.module.css';
 import Modal from 'react-modal';
 
-const ImageModal = ({ image, modalIsOpen, closeModal }) => {
-  const { regular, alt_description } = image;
+interface ImageModalProps {
+  image: Image;
+  modalIsOpen: boolean;
+  closeModal: () => void;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({
+  image,
+  modalIsOpen,
+  closeModal,
+}) => {
+  const { regular } = image.urls;
+  const { alt_description } = image;
 
   const customStyles = {
     content: {

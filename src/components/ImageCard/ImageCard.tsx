@@ -1,7 +1,14 @@
+import { Image } from '../../types';
 import s from './ImageCard.module.css';
 
-const ImageCard = ({ image, openModal }) => {
-  const { small, alt_description } = image;
+interface ImageCardProps {
+  image: Image;
+  openModal: (image: Image) => void;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ image, openModal }) => {
+  const { small } = image.urls;
+  const { alt_description } = image;
   return (
     <li>
       <img

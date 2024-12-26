@@ -4,20 +4,21 @@ import ImageModal from './ImageModal/ImageModal';
 import Loader from './Loader/Loader';
 import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
 import SearchBar from './SearchBar/SearchBar';
+import fetchImages from '../services/api';
+import { Image } from '../types';
 
 import { useState, useEffect } from 'react';
-import fetchImages from '../services/api';
 import Modal from 'react-modal';
 import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [query, setQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
 
   useEffect(() => {
     Modal.setAppElement('#root');
@@ -28,12 +29,11 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const response = await fetchImages(query, page);
+        const response = await fetchImages<Image[]>(query, page);
         const imagesData = response.map(
           ({ id, urls: { small, regular }, alt_description }) => ({
             id,
-            small,
-            regular,
+            urls: { small, regular },
             alt_description,
           })
         );
@@ -51,7 +51,7 @@ function App() {
     }
   }, [query, page]);
 
-  const onSubmit = (query) => {
+  const onSubmit = (query: string) => {
     if (!query) {
       toast.error('Search query should not be empty');
       return;
@@ -61,17 +61,17 @@ function App() {
     setPage(1);
   };
 
-  function openModal(image) {
+  function openModal(image: Image): void {
     setSelectedImage(image);
     setModalIsOpen(true);
   }
 
-  function closeModal() {
+  function closeModal(): void {
     setModalIsOpen(false);
     setSelectedImage(null);
   }
 
-  const onLoadMore = () => {
+  const onLoadMore = (): void => {
     setPage((prev) => prev + 1);
   };
 

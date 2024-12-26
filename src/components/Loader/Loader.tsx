@@ -1,7 +1,11 @@
 import s from './Loader.module.css';
 import { ThreeDots } from 'react-loader-spinner';
 
-const Loader = ({ isLoading }) => {
+interface LoaderProps {
+  isLoading: boolean;
+}
+
+const Loader: React.FC<LoaderProps> = ({ isLoading }) => {
   return (
     <div className={s.loader}>
       <ThreeDots

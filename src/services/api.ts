@@ -3,8 +3,14 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://api.unsplash.com/';
 const API_KEY = '274WIVsqkjCa9pYYmCFO6ryZWLZ39IBFhKQtIYxpENE';
 
-const fetchImages = async (query, page) => {
-  const resp = await axios.get('search/photos', {
+interface UnsplashResponse<T> {
+  results: T;
+  total: number;
+  total_pages: number;
+}
+
+async function fetchImages<T>(query: string, page: number): Promise<T> {
+  const resp = await axios.get<UnsplashResponse<T>>('search/photos', {
     params: {
       client_id: API_KEY,
       query,
@@ -13,6 +19,6 @@ const fetchImages = async (query, page) => {
     },
   });
   return resp.data.results;
-};
+}
 
 export default fetchImages;
