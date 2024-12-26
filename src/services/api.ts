@@ -15,7 +15,7 @@ async function fetchImages<T>(query: string, page: number): Promise<T> {
       client_id: API_KEY,
       query,
       page,
-      per_page: 16,
+      per_page: 18,
     },
   });
   return resp.data.results;
