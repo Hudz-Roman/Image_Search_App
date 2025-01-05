@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://api.unsplash.com/';
-const apiKey = import.meta.env.API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 interface UnsplashResponse<T> {
   results: T;
   total: number;
